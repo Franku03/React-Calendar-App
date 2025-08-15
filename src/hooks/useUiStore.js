@@ -16,7 +16,8 @@ export const useUiStore = () => {
 
     const openDateModal = () => {
         // Remember: isMyEvent =  ( user.uid === activeEvent?.user._id ) ? true : false 
-        dispatch( onOpenDateModal( ( user.uid === activeEvent?.user._id ) || ( user.uid === activeEvent?.user.uid )) );
+        // La última condición es para cuando se selecciona el botón de agregar FabAddNew
+        dispatch( onOpenDateModal( ( user.uid === activeEvent?.user._id ) || ( user.uid === activeEvent?.user.uid ) || (!activeEvent)) );
     }
 
     const closeDateModal = () => {

@@ -15,7 +15,7 @@ export const useAuthStore = () => {
         try {
             // Mandamos como argumento el segmento de URL correspondiente al endpoint que queremos hacerle la solicitud
             // OJO: si en la variable de entorno colocamos el final como /api/, no hace falta colocarlo aquí de nuevo
-            const { data } = await calendarApi.post('auth',{ email, password });
+            const { data } = await calendarApi.post('/auth',{ email, password });
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() ); // Obtenemos la fecha de generación del token para poder hacer calculos o comprobaciones con este
             
@@ -40,7 +40,7 @@ export const useAuthStore = () => {
 
         try {
 
-            const { data } = await calendarApi.post('auth/new',{ name, email, password });
+            const { data } = await calendarApi.post('/auth/new',{ name, email, password });
 
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() ); // Obtenemos la fecha de generación del token para poder hacer calculos o comprobaciones con este
@@ -67,7 +67,7 @@ export const useAuthStore = () => {
         if ( !token ) return dispatch( onLogout() );
 
         try {
-            const { data } = await calendarApi.get( 'auth/renew');
+            const { data } = await calendarApi.get( '/auth/renew');
             // console.log({ data });
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() ); // Obtenemos la fecha de generación del token para poder hacer calculos o comprobaciones con este

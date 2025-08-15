@@ -1,7 +1,7 @@
 // Fab = Floating action Button
 
 import { addHours } from "date-fns";
-import { useAuthStore, useCalendarStore, useUiStore } from "../../hooks"
+import { useCalendarStore, useUiStore } from "../../hooks"
 
 export const FabAddNew = () => {
 
@@ -9,7 +9,6 @@ export const FabAddNew = () => {
     
     const { openDateModal } = useUiStore();
     const { setActiveEvent } = useCalendarStore();
-    const { user } = useAuthStore();
 
     const handleClickNew = () => {
         setActiveEvent({
@@ -17,7 +16,6 @@ export const FabAddNew = () => {
             notes: '',
             start: new Date(),
             end: addHours( new Date(), 2 ),
-            user,
             // bgColor: '#fafafa',
             // user: {
             //     _id:'123',

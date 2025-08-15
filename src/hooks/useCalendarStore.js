@@ -30,13 +30,13 @@ export const useCalendarStore = () => {
 
             if( calendarEvent.id ){
                 // Actualizando
-                await calendarApi.put(`events/${ calendarEvent.id }`, calendarEvent )
+                await calendarApi.put(`/events/${ calendarEvent.id }`, calendarEvent )
                 dispatch( onUpdateEvent({ ...calendarEvent, user }) );
                 return
             }
     
             // Creando
-            const { data } = await calendarApi.post('events', calendarEvent);
+            const { data } = await calendarApi.post('/events', calendarEvent);
             dispatch( onAddNewEvent({ ...calendarEvent, id: data.evento?.id, user }) );
 
         } catch (error) {
@@ -52,7 +52,7 @@ export const useCalendarStore = () => {
 
         try {
             // Actualizando
-            await calendarApi.delete(`events/${ activeEvent.id }`);
+            await calendarApi.delete(`/events/${ activeEvent.id }`);
             dispatch( onDeleteEvent() );
             // disableActiveEvent(); No hace falta porque en el onDeleteEvent ya colocamos la nota en null
 
@@ -68,7 +68,7 @@ export const useCalendarStore = () => {
 
         try {
             
-            const { data } = await calendarApi.get('events');
+            const { data } = await calendarApi.get('/events');
             const events = convertEventsToDateEvents( data.eventos );
             dispatch( onLoadEvents( events ) );
 
