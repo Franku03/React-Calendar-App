@@ -7,12 +7,16 @@ export const useUiStore = () => {
 
     const dispatch = useDispatch();
 
-    const {
-        isDateModalOpen,
-    } = useSelector( state => state.ui );
+    const { isDateModalOpen, isMyModal } = useSelector( state => state.ui );
+
+    // User Determination logic
+    const { user } = useSelector( state => state.auth );
+    const { activeEvent } = useSelector( state => state.calendar );
+
 
     const openDateModal = () => {
-        dispatch( onOpenDateModal() );
+        // Remember: isMyEvent =  ( user.uid === activeEvent?.user._id ) ? true : false 
+        dispatch( onOpenDateModal( ( user.uid === activeEvent?.user._id ) || ( user.uid === activeEvent?.user.uid )) );
     }
 
     const closeDateModal = () => {
@@ -28,6 +32,7 @@ export const useUiStore = () => {
     return {
         // * Propiedades
         isDateModalOpen,
+        isMyModal,
 
         // * Métodos
         openDateModal,

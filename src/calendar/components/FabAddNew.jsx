@@ -1,12 +1,15 @@
 // Fab = Floating action Button
 
 import { addHours } from "date-fns";
-import { useCalendarStore, useUiStore } from "../../hooks"
+import { useAuthStore, useCalendarStore, useUiStore } from "../../hooks"
 
 export const FabAddNew = () => {
 
+    // los atributos comentados en el setActiveEvent son aquellos que nunca fueron necesarios, se pusieron ahí como placeholder
+    
     const { openDateModal } = useUiStore();
     const { setActiveEvent } = useCalendarStore();
+    const { user } = useAuthStore();
 
     const handleClickNew = () => {
         setActiveEvent({
@@ -14,11 +17,12 @@ export const FabAddNew = () => {
             notes: '',
             start: new Date(),
             end: addHours( new Date(), 2 ),
-            bgColor: '#fafafa',
-            user: {
-                _id:'123',
-                name: 'Franku'
-            }
+            user,
+            // bgColor: '#fafafa',
+            // user: {
+            //     _id:'123',
+            //     name: 'Franku'
+            // }
         });
         openDateModal();
     }

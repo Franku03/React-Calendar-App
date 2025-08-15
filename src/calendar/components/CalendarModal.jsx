@@ -34,17 +34,17 @@ const modalData = {
     end: addHours( new Date(), 2 ),
 };
 
-export const CalendarModal = () => {
+export const CalendarModal = () => { 
 
-    const { 
-        formValues, titleClass, 
-        onInputChanged, onDateChanged, onFormSubmitted,
-    } = useFormModal( modalData );
+    //  Ui and Form hook logic
+    const { formValues, titleClass, onInputChanged, onDateChanged, onFormSubmitted } = useFormModal( modalData );
 
-    const { isDateModalOpen, closeDateModal } = useUiStore();
-
+    const { isDateModalOpen, isMyModal, closeDateModal } = useUiStore();
+    
     const { disableActiveEvent, startSavingEvent } = useCalendarStore();
 
+
+    // Modal Methods
     const onCloseModal = () => {
         // Creamos una función por si hiciera falta en algún futuro agregar algún tipo de limpieza o código extra, de no ser así podría borrarse y llamar directamente a la función del hook desde el componente
         closeDateModal();
@@ -90,6 +90,7 @@ export const CalendarModal = () => {
                         selected={ formValues.start }
                         onChange={ ( event ) => onDateChanged(event, 'start') }
                         className='form-control'
+                        disabled={ !isMyModal }
                         dateFormat="Pp"
                         showTimeSelect
                         locale="es"
@@ -104,6 +105,7 @@ export const CalendarModal = () => {
                         selected={ formValues.end }
                         onChange={ ( event ) => onDateChanged(event, 'end') }
                         className='form-control'
+                        disabled={ !isMyModal }
                         dateFormat="Pp"
                         showTimeSelect
                         locale="es"
@@ -117,6 +119,7 @@ export const CalendarModal = () => {
                     <input 
                         type="text" 
                         className={`form-control ${ titleClass }`}
+                        disabled={ !isMyModal }
                         placeholder="Título del evento"
                         name="title"
                         autoComplete="off"
@@ -130,6 +133,7 @@ export const CalendarModal = () => {
                     <textarea 
                         type="text" 
                         className="form-control"
+                        disabled={ !isMyModal }
                         placeholder="Notas"
                         rows="5"
                         name="notes"
@@ -142,6 +146,7 @@ export const CalendarModal = () => {
                 <button
                     type="submit"
                     className="btn btn-outline-primary btn-block"
+                    disabled={ !isMyModal }
                 >
                     <i className="far fa-save"></i>
                     <span> Guardar</span>

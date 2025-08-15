@@ -22,7 +22,7 @@ export const useFormModal = ( initialModalData = {} ) => {
 
     }, [formValues.title, formSubmitted]);
 
-    // Para cargar cambiar la referencia al formulario activo en el estado si el evento activo cambia en el store
+    // Para cargar y cambiar la referencia al formulario activo en el estado si el evento activo cambia en el store
     useEffect(() => {
 
       if( activeEvent !== null ){
@@ -54,8 +54,11 @@ export const useFormModal = ( initialModalData = {} ) => {
     }
 
     return {
+        // * Propiedades
         titleClass,
         formValues,
+
+        // * Métodos
         onInputChanged,
         onDateChanged,
         onFormSubmitted,

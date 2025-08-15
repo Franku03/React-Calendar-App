@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { calendarApi } from "../api";
-import { clearErrorMessage, onChecking, onLogin, onLogout } from "../store";
+import { clearErrorMessage, onChecking, onLogin, onLogout, onLogoutCalendar } from "../store";
 
 export const useAuthStore = () => {
 
@@ -68,7 +68,7 @@ export const useAuthStore = () => {
 
         try {
             const { data } = await calendarApi.get( 'auth/renew');
-            console.log({ data });
+            // console.log({ data });
             localStorage.setItem('token', data.token );
             localStorage.setItem('token-init-date', new Date().getTime() ); // Obtenemos la fecha de generación del token para poder hacer calculos o comprobaciones con este
             
@@ -82,6 +82,7 @@ export const useAuthStore = () => {
 
     const startLogout = () => {
         localStorage.clear();
+        dispatch( onLogoutCalendar() );
         dispatch( onLogout() );
     }
 
